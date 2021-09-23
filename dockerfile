@@ -42,5 +42,5 @@ RUN cargo build --release
 # リリース用イメージには debian を使用します。
 FROM debian:10.4
 
-COPY --from=builder /todo/target/release/todo_rust /usr/local/bin/todo_rust
-CMD ["todo_rust"]
+COPY --from=builder /todo/target/release/todo /usr/local/bin/todo
+CMD ["todo"]
