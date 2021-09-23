@@ -1,5 +1,5 @@
 # # Docker Official の Rust イメージを使います
-# FROM rust:1.55 AS builder
+FROM rust:1.55 AS builder
 # 
 # # /todo でビルドします
 # WORKDIR /todo
@@ -27,7 +27,7 @@
 # # コンテナ起動時に Web アプリを起動する
 # CMD ["todo"]
 
-FROM rust:1.43 AS builder
+# FROM rust:1.43 AS builder
 
 WORKDIR /todo
 COPY Cargo.toml Cargo.toml
@@ -40,7 +40,8 @@ RUN rm -f target/release/deps/todo*
 RUN cargo build --release
 
 # リリース用イメージには debian を使用します。
-FROM debian:10.4
+FROM rust:1.55
+# FROM debian:10.4
 
 COPY --from=builder /todo/target/release/todo /usr/local/bin/todo
 CMD ["todo"]
